@@ -1,9 +1,9 @@
-function createHandler(target) {
-  // Assuming that target function does not depend on `this`
+function createHandler() {
   return {
     previousArgs: undefined,
     cachedResult: undefined,
 
+    // Assuming that target function does not depend on `this`
     apply: function (target, thisArg, args) {
       if (Array.isArray(this.previousArgs)
         && this.previousArgs.length === args.length
@@ -21,6 +21,6 @@ function createHandler(target) {
 }
 
 function withMemo(target) {
-  const handler = createHandler(target)
+  const handler = createHandler()
   return new Proxy(target, handler)
 }

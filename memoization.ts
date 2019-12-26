@@ -3,12 +3,12 @@ interface WithMemoProxyHandler<T extends (...args: any) => any> extends ProxyHan
   cachedResult?: ReturnType<T>
 }
 
-function createHandler<T extends (...args: any) => any>(target: T): WithMemoProxyHandler<T> {
-  // Assuming that target function does not depend on `this`
+function createHandler<T extends (...args: any) => any>(): WithMemoProxyHandler<T> {
   return {
     previousArgs: undefined,
     cachedResult: undefined,
 
+    // Assuming that target function does not depend on `this`
     apply: function (target: T, thisArg: ThisType<any>, args: Parameters<T>) {
       if (Array.isArray(this.previousArgs)
         && this.previousArgs.length === args.length
@@ -27,6 +27,6 @@ function createHandler<T extends (...args: any) => any>(target: T): WithMemoProx
 
 function withMemo<T extends (...args: any) => any>(target: T): (...args: Parameters<T>)
   => ReturnType<T> {
-  const handler = createHandler<T>(target)
+  const handler = createHandler()
   return new Proxy(target, handler)
 }
