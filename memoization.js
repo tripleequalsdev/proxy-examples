@@ -3,7 +3,7 @@ function createHandler() {
     previousArgs: undefined,
     cachedResult: undefined,
 
-    // Assuming that target function does not depend on `this`
+    // Assuming that target function is pure and does not depend on `this`
     apply: function (target, thisArg, args) {
       if (Array.isArray(this.previousArgs)
         && this.previousArgs.length === args.length

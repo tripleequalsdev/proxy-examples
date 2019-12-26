@@ -8,7 +8,7 @@ function createHandler<T extends (...args: any) => any>(): WithMemoProxyHandler<
     previousArgs: undefined,
     cachedResult: undefined,
 
-    // Assuming that target function does not depend on `this`
+    // Assuming that target function is pure and does not depend on `this`
     apply: function (target: T, thisArg: ThisType<any>, args: Parameters<T>) {
       if (Array.isArray(this.previousArgs)
         && this.previousArgs.length === args.length
