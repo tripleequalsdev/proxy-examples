@@ -11,7 +11,7 @@ function createHandler() {
         return this.cachedResult
       }
 
-      const newResult = target.apply(thisArg, args.slice(args))
+      const newResult = target.apply(thisArg, args)
       this.cachedResult = newResult
       this.previousArgs = args
 
